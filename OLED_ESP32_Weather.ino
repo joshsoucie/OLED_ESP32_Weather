@@ -10,6 +10,8 @@
 #include "images.h"
 #include <ArduinoJson.h>
 
+// Comment to commit...ugh
+
 //Setup WiFi
 const char ssid[] = "HomeSweetHome"; //  your network SSID (name)
 const char password[] = "020293120490";    // your network password (use for WPA, or use as key for WEP)
@@ -40,9 +42,9 @@ int clockCenterY = ((screenH-16)/2)+16;   // top yellow part is 16 px height
 void setup() {
   pinMode(16,OUTPUT);
   digitalWrite(16, LOW);    // set GPIO16 low to reset OLED
-  delay(50); 
+  delay(50);
   digitalWrite(16, HIGH); // while OLED is running, must set GPIO16 in high
-  
+
   Serial.begin(9600);
   Serial.println();
 
@@ -69,10 +71,10 @@ void setup() {
 
   /*
   StaticJsonBuffer<200> jsonBuffer;
-  
+
   char json[] =
       "{}";
-    */  
+    */
 }
 
 void loop() {
@@ -89,7 +91,7 @@ void loop() {
 */
   String str = "Loading";
   int counter = 0;
-  
+
   while (counter < 4) {
     display.clear();
     display.drawString(64, 22, str);
@@ -102,7 +104,7 @@ void loop() {
 }
 
 int initWifi(const char* ssid, const char* pwd) {
- 
+
   int connAttempts = 0;
   display.clear();
   display.print("Connecting to ");
@@ -110,7 +112,7 @@ int initWifi(const char* ssid, const char* pwd) {
   display.drawLogBuffer(10, 10);
   display.display();
   WiFi.begin(ssid, pwd);
- 
+
   while (WiFi.status() != WL_CONNECTED ) {
     delay(500);
     display.print(".");
@@ -119,13 +121,13 @@ int initWifi(const char* ssid, const char* pwd) {
     if(connAttempts > 20) return -5;
     connAttempts++;
   }
- 
+
   Serial.println("");
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
   return 1;
-  
+
 }
 
 int getURL(const char* host, const char* url, String* resultString) {
@@ -170,5 +172,5 @@ int getURL(const char* host, const char* url, String* resultString) {
   // redundant, should probably remove
   client.stop();
   return 1;
-  
+
 }
